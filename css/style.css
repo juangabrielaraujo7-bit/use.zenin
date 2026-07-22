@@ -1141,3 +1141,24 @@ body::after{
 @media (max-width: 360px){
   .brand-word{ display: none; }
 }
+
+/* ---------- Performance: aliviar peso em celulares ---------- */
+@media (max-width: 768px){
+  .header{ backdrop-filter: none; background: rgba(0, 3, 8, 0.92); }
+  .aurora span{ filter: blur(34px); animation: none; opacity: 0.28; }
+  html::before{ animation: none; background-position: 0 0; }
+  .hv-card{ backdrop-filter: none; animation: none; }
+  .hv-glow{ animation: none; opacity: 0.4; }
+  .flow-step .num{ animation: none; }
+  .portfolio-thumb::after{ animation: none; }
+  .contact-panel{ backdrop-filter: none; }
+  .card{ backdrop-filter: none; }
+  .stat-strip{ backdrop-filter: none; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .aurora span, html::before, .hv-card, .hv-glow, .flow-step .num, .portfolio-thumb::after{
+    animation: none !important;
+  }
+  [data-reveal]{ transition: none !important; opacity: 1 !important; transform: none !important; }
+}

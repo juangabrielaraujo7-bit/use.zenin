@@ -52,6 +52,23 @@
     });
   }
 
+  /* ---------- Contagem animada (data-count) ---------- */
+  function animateCount(el) {
+    var target = parseInt(el.getAttribute("data-count"), 10);
+    var suffix = el.getAttribute("data-suffix") || "";
+    if (isNaN(target)) return;
+    var duration = 900;
+    var start = null;
+    function step(ts) {
+      if (!start) start = ts;
+      var progress = Math.min((ts - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(eased * target) + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
   /* ---------- Animações ao rolar (fade / slide) ---------- */
   var revealEls = document.querySelectorAll("[data-reveal]");
   if ("IntersectionObserver" in window && revealEls.length) {
@@ -60,6 +77,7 @@
         entries.forEach(function (entry) {
           if (entry.isIntersecting) {
             entry.target.classList.add("is-visible");
+            entry.target.querySelectorAll("[data-count]").forEach(animateCount);
             observer.unobserve(entry.target);
           }
         });
@@ -73,6 +91,7 @@
   } else {
     revealEls.forEach(function (el) {
       el.classList.add("is-visible");
+      el.querySelectorAll("[data-count]").forEach(animateCount);
     });
   }
 

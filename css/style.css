@@ -810,6 +810,18 @@ body::after{
 .contact-list .ic svg{ width: 20px; height: 20px; }
 .contact-list small{ display: block; font-weight: 400; color: var(--text-faint); font-size: 12px; margin-top: 2px; }
 
+/* ---------- Ícones de marca (cores originais) ---------- */
+.ic--whatsapp, .footer-social a.is-whatsapp{
+  background: #25D366 !important;
+  box-shadow: 0 6px 18px -4px rgba(37,211,102,0.8) !important;
+}
+.ic--instagram, .footer-social a.is-instagram{
+  background: radial-gradient(circle at 30% 110%, #ffdd55 0%, #ffdd55 10%, #ff543e 45%, #c837ab 60%, #4f5bd5 90%) !important;
+  box-shadow: 0 6px 18px -4px rgba(200,55,171,0.7) !important;
+}
+.footer-social a.is-whatsapp, .footer-social a.is-instagram{ border-color: transparent; }
+.footer-social a.is-whatsapp:hover, .footer-social a.is-instagram:hover{ filter: brightness(1.1); border-color: transparent; }
+
 .form-group{ margin-bottom: 18px; }
 .form-group label{
   display: block;
@@ -1162,3 +1174,80 @@ body::after{
   }
   [data-reveal]{ transition: none !important; opacity: 1 !important; transform: none !important; }
 }
+
+/* ---------- Botão flutuante do WhatsApp ---------- */
+.wa-float{
+  position: fixed;
+  right: 20px;
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  z-index: 1100;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #25D366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 30px -6px rgba(37,211,102,0.7), 0 0 0 1px rgba(255,255,255,0.08) inset;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.wa-float svg{ width: 28px; height: 28px; color: #fff; }
+.wa-float::before{
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #25D366;
+  animation: waPulse 2.4s ease-out infinite;
+  z-index: -1;
+}
+.wa-float:hover{ transform: scale(1.08); box-shadow: 0 14px 36px -6px rgba(37,211,102,0.85); }
+@keyframes waPulse{
+  0%{ opacity: 0.55; transform: scale(1); }
+  100%{ opacity: 0; transform: scale(1.7); }
+}
+@media (max-width: 560px){
+  .wa-float{ width: 52px; height: 52px; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); }
+  .wa-float svg{ width: 25px; height: 25px; }
+}
+@media (max-width: 768px){
+  .wa-float::before{ animation: none; }
+}
+@media (prefers-reduced-motion: reduce){
+  .wa-float::before{ animation: none; }
+}
+
+/* ---------- Faixa de valor (crescimento / consistência / organização) ---------- */
+.value-strip{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+.value-card{
+  position: relative;
+  padding: 26px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-soft);
+  background: var(--glass);
+  overflow: hidden;
+}
+.value-card::before{
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 160px; height: 160px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(46,107,255,0.35), transparent 70%);
+  pointer-events: none;
+}
+.value-card .value-icon{
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--gradient-accent);
+  margin-bottom: 16px;
+  box-shadow: 0 8px 22px -6px rgba(46,107,255,0.85);
+}
+.value-card .value-icon svg{ width: 22px; height: 22px; color: var(--white); }
+.value-card h3{ font-size: 17px; margin-bottom: 8px; }
+.value-card p{ font-size: 14px; color: var(--text-muted); margin: 0; }
